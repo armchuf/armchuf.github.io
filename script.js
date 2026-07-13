@@ -38,7 +38,7 @@ async function loadCards() {
             <div class="card border-0 shadow-sm rounded-4 mb-4 overflow-hidden">
                 <div style="height:6px; background: linear-gradient(90deg, #712cf9, #9b59b6);"></div>
                 <div class="card-body p-4">
-                    <h4 class="card-title fw-bold text-dark mb-0">
+                    <h4 class="card-title fw-bold text-body mb-0">
                         ${title}
                     </h4>
                     <p class="card-text fs-6 text-secondary mb-0" style="white-space: pre-line;">
