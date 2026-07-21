@@ -1,4 +1,4 @@
-const MAX_CARDS = 100; // Change this value as needed
+const MAX_CARDS = 200; // Change this value as needed
 
 async function loadCards() {
     try {
@@ -20,8 +20,6 @@ async function loadCards() {
             return;
         }
 
-        document.getElementById("loading").remove();
-
         const container = document.getElementById("cardContainer");
 
         sections.forEach(section => {
@@ -29,29 +27,25 @@ async function loadCards() {
 
             if (lines.length === 0) return;
 
-            const title = lines.shift();      // First line = heading
-            const body = lines.join("<br>");  // Remaining lines
+            const title = lines.shift();
+            const time = lines.pop()
+            const body = lines.join("<br>");
 
             const card = document.createElement("div");
 
             card.innerHTML = `
-            <div class="card border-0 shadow-sm rounded-4 mb-4 overflow-hidden">
-                <div style="height:6px; background: linear-gradient(90deg, #712cf9, #9b59b6);"></div>
-                <div class="card-body p-4">
-                    <h4 class="card-title fw-bold text-body mb-0">
-                        ${title}
-                    </h4>
-                    <p class="card-text fs-6 text-secondary mb-0" style="white-space: pre-line;">
-                            ${body}
-                    </p>
+            <div class="card confession-card">
+                <div class="card-header-strip"></div>
+                <div class="card-body">
+                    <h5 class="card-title">${title}</h5>
+                    <p>${body}</p>
+                    <div class="card-date">${time}</div>
                 </div>
             </div>
             `;
 
             container.appendChild(card);
         });
-
-        document.getElementById("footer").style.display = "";
 
     } catch (err) {
         console.error(err);
