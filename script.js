@@ -2,7 +2,10 @@ const MAX_CARDS = 200; // Change this value as needed
 
 async function loadCards() {
     try {
-        const response = await fetch("confessions.txt");
+        // const response = await fetch("confessions.txt");
+        const response = await fetch(`/confessions.txt?t=${Date.now()}`, {
+            cache: 'no-store'
+        });
 
         if (!response.ok) {
             throw new Error("Unable to read confessions.txt");
