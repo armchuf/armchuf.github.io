@@ -1,3 +1,7 @@
+Linux (/ˈlɪnʊks/ LIN-uuks)[11] is a family of
+Linux (/ˈlɪnʊks/ LIN-uuks)[11] is a family of free and open-source software Unix-like operating systems based on the Linux kernel,[12] which was first released on 17 September 1991 by Linus Torvalds.[13][14] Some members of the family are typically packaged as a distribution (a.k.a. distro), which includes the kernel alongside supporting system software and libraries developed by third parties—such as GNU, Red Hat, and X.Org—to create a complete operating system; however, not all Linux-based operating systems are considered distros, with Android being an example. Linux was originally designed as a clone of Unix and is distributed under the copyleft GPL license.[15]
+2:03 PM 24 July 2026
+
 test2
 test2
 2:03 PM 24 July 2026
