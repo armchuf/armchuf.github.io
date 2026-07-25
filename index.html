@@ -68,7 +68,7 @@
 
     .card-date {
       text-align: right;
-      text-decoration: underline;
+      /* text-decoration: underline; */
       color: #666;
       font-size: .85rem
     }
@@ -151,23 +151,286 @@
       -ms-user-select: none;
       user-select: none;
     }
+
+    .text {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .text.expanded {
+      display: block;
+    }
+
+    .form-control[readonly] {
+      background-color: #f8f9fa;
+      cursor: default;
+    }
   </style>
 </head>
 
 <body>
   <nav class="navbar fixed-top">
-    <div class="container"><a class="navbar-brand no-select" onclick="location.reload();">ARMCH Unfiltered</a>
+    <div class="container"><a class="navbar-brand no-select" onclick="reloadCards();">ARMCH Unfiltered</a>
       <div class="d-flex gap-2"><button class="btn btn-warning nav-btn" data-bs-toggle="modal"
           data-bs-target="#aboutModal">About</button><button class="btn btn-primary nav-btn" data-bs-toggle="modal"
           data-bs-target="#confessModal">Confess</button></div>
     </div>
   </nav>
 
-  <div class="container" id="cardContainer">
-  </div>
-  <script src="script.js"></script>
+  <!-- Cards JS -->
+  <script>
+    document.addEventListener("click", (e) => {
+      if (!e.target.classList.contains("toggle-btn")) return;
 
-  <div class="bottom">Made with ❤️ for students of ARMCH.</div>
+      const button = e.target;
+      const text = button.closest(".read-more").querySelector(".text");
+
+      text.classList.toggle("expanded");
+      button.textContent = text.classList.contains("expanded")
+        ? "Read less"
+        : "Read more";
+    });
+  </script>
+
+  <!-- Comment Modal Code -->
+  <script>
+    function launchCommentPrompt(id) {
+      // Read text content
+      const title = document.getElementById(`${id}-title`)?.textContent.trim() || "";
+      const body = document.getElementById(`${id}-body`)?.textContent.trim() || "";
+      const time = document.getElementById(`${id}-time`)?.textContent.trim() || "";
+
+      // Update input values
+      document.getElementById("commentTitle").value = title;
+      document.getElementById("commentBody").value = body;
+      document.getElementById("commentTime").value = time;
+
+      // Show Bootstrap 5 modal
+      const modal = new bootstrap.Modal(document.getElementById("commentModal"));
+      modal.show();
+    }
+
+    function closeCommentForm() {
+      if (!confirm("Your changes will be lost. Continue?")) {
+        return;
+      }
+
+      // Reset form
+      document.getElementById("commentForm").reset();
+
+      // Clear readonly fields
+      document.getElementById("commentTitle").value = "";
+      document.getElementById("commentBody").value = "";
+      document.getElementById("commentTime").value = "";
+
+      // Reset character counter
+      document.getElementById("commentCommentCount").textContent = "0";
+
+      // Close modal
+      bootstrap.Modal
+        .getOrCreateInstance(document.getElementById("commentModal"))
+        .hide();
+    }
+  </script>
+  <div class="container" id="cardContainer"></div>
+  <!-- script.js -->
+  <script>
+    const MAX_CARDS = 400; // Change this value as needed
+    let cardsLoading = false;
+
+    async function loadCards(text, error) {
+      if (cardsLoading) {
+        return
+      } else {
+        cardsLoading = true;
+      }
+
+      try {
+        if (error !== "") {
+          throw new Error(error);
+        }
+
+        const sections = text
+          .split(/\r?\n\r?\n+/)
+          .map(section => section.trim())
+          .filter(section => section.length > 0)
+          .slice(0, MAX_CARDS);
+
+        if (sections.length === 0) {
+          return;
+        }
+
+        const container = document.getElementById("cardContainer");
+        container.innerHTML = "";
+
+        sections.forEach(section => {
+          const lines = section.trim().split(/\r?\n/);
+
+          if (lines.length === 0) return;
+          const card = document.createElement("div");
+
+          if (lines.length === 4) {
+            const id = lines.shift();
+            const title = lines.shift();
+            const body = lines.shift();
+            const time = lines.shift();
+
+            card.innerHTML = `
+                <div class="card confession-card">
+                    <div class="card-header-strip"></div>
+                    <div class="card-body">
+                        <h5 class="card-title" id="${id}-title">${title}</h5>
+                        <div class="read-more">
+                            <p class="text" id="${id}-body">${body}</p>
+                            <div class="text-end">
+                                <button class="btn btn-link p-0 toggle-btn">Read more</button>
+                            </div>
+                        </div>
+                        <div class="card-date" id="${id}-time">${time}</div>
+                        <button class="btn btn-danger w-100 py-1 fw-semibold"
+                        onclick="launchCommentPrompt('${id}')">Comment</button>
+                    </div>
+                </div>
+            `;
+          } else if (lines.length === 6) {
+            const id = lines.shift();
+            const title = lines.shift();
+            const body = lines.shift();
+            const time = lines.shift();
+            const comment = lines.shift();
+            const cmTime = lines.shift();
+
+            card.innerHTML = `
+                <div class="card confession-card">
+                    <div class="card-header-strip"></div>
+                    <div class="card-body">
+                        <h5 class="card-title" id="${id}-title">${title}</h5>
+                        <div class="read-more">
+                            <p class="text" id="${id}-body">${body}</p>
+                            <div class="text-end">
+                                <button class="btn btn-link p-0 toggle-btn">Read more</button>
+                            </div>
+                        </div>
+                        <div class="card-date" id="${id}-time">${time}</div>
+                        <div class="about-box bg-warning bg-opacity-10 border-warning">
+                            <h6>Comment</h6>
+                            <div class="read-more">
+                                <p class="text">${comment}</p>
+                                <div class="text-end">
+                                        <button class="btn btn-link p-0 toggle-btn">Read more</button>
+                                </div>
+                            </div>
+                            <div class="card-date">${cmTime}</div>
+                        </div>
+                        <button class="btn btn-danger w-100 py-1 fw-semibold"
+                        onclick="launchCommentPrompt('${id}')">Comment</button>
+                    </div>
+                </div>
+            `;
+          } else {
+            return
+          }
+
+          container.appendChild(card);
+        });
+
+        document.querySelectorAll(".read-more").forEach(container => {
+          const text = container.querySelector(".text");
+          const button = container.querySelector(".toggle-btn");
+
+          const lineHeight = parseFloat(getComputedStyle(text).lineHeight);
+          if (text.scrollHeight <= lineHeight * 2 + 1) {
+            button.style.display = "none";
+          }
+        });
+
+      } catch (err) {
+        console.error(err);
+
+        document.getElementById("cardContainer").innerHTML = `
+            <div class="col-12">
+                <div class="alert alert-danger">
+                    Failed to load data.
+                </div>
+            </div>
+        `;
+      } finally {
+        cardsLoading = false;
+      }
+    }
+  </script>
+
+  <!-- Cards Reload Function -->
+  <script>
+    function reloadCards() {
+      if (cardsLoading) {
+        return
+      }
+      // Create and inject the script tag
+      const scriptTag = document.createElement('script');
+      scriptTag.src = `https://confess-armchuf1.vercel.app/confessions?t=${Date.now()}`;
+      scriptTag.async = true;
+      const timeout = setTimeout(() => {
+
+        loadCards("", "Server timeout.")
+        scriptTag.remove();
+
+      }, 30000); // 30 seconds
+
+      // Clean up the script tag from DOM after execution to keep HTML tidy
+      scriptTag.onload = () => {
+        clearTimeout(timeout);
+        scriptTag.remove();
+      };
+      scriptTag.onerror = () => {
+
+        clearTimeout(timeout);
+
+        console.error('Script injection failed. Ensure server is online.');
+
+        loadCards("", "Data server could not be reached.")
+
+        scriptTag.remove();
+      };
+      document.body.appendChild(scriptTag);
+    }
+
+    function closeStatusModal() {
+      // Close modal
+      bootstrap.Modal
+        .getOrCreateInstance(document.getElementById("statusModal"))
+        .hide();
+      // Reload cards
+      reloadCards();
+    }
+  </script>
+
+  <!-- Load cards 1st time. -->
+  <script>
+    window.addEventListener("load", () => {
+      reloadCards();
+    });
+  </script>
+
+  <!-- Bottom Bar Script -->
+  <script>
+    setTimeout(() => {
+      document.getElementById("bottomBar").innerHTML = `Click <a href="#" onclick="resetBottomBar(); return false;">here</a> to refresh confessions.`
+    }, 60000);
+
+    function resetBottomBar() {
+      // Reset bottom bar
+      document.getElementById('bottomBar').textContent = 'Made with ❤️ for students of ARMCH.';
+      reloadCards();
+      setTimeout(() => {
+        document.getElementById("bottomBar").innerHTML = `Click <a href="#" onclick="resetBottomBar(); return false;">here</a> to refresh confessions.`
+      }, 60000);
+    }
+  </script>
+
+  <div class="bottom" id="bottomBar">Made with ❤️ for students of ARMCH.</div>
 
   <div class="modal fade" id="aboutModal" data-bs-backdrop="static" data-bs-keyboard="false">
     <div class="modal-dialog modal-dialog-scrollable">
@@ -222,14 +485,14 @@
             data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body">
-          <form id="submissionForm">
-            <div class="mb-3"><label class="form-label">Title</label><input id="formTitle" maxlength="40"
+          <form id="confessForm">
+            <div class="mb-3"><label class="form-label">Title</label><input id="confessTitle" maxlength="40"
                 class="form-control">
-              <div class="counter"><span id="titleCount">0</span>/40</div>
+              <div class="counter"><span id="confessTitleCount">0</span>/40</div>
             </div>
-            <div class="mb-3"><label class="form-label">Confession</label><textarea id="formBody" rows="5"
+            <div class="mb-3"><label class="form-label">Confession</label><textarea id="confessBody" rows="5"
                 maxlength="400" class="form-control"></textarea>
-              <div class="counter"><span id="bodyCount">0</span>/400</div>
+              <div class="counter"><span id="confessBodyCount">0</span>/400</div>
             </div>
             <button type="submit" class="btn btn-danger w-100 py-1 fw-semibold">Confess</button>
           </form>
@@ -246,7 +509,7 @@
         </div>
         <div class="modal-body">
           <div class="about-box bg-danger bg-opacity-10 border-danger">
-            <h6 id="statusText">Your Confession is being uploaded</h6>
+            <h6 id="statusText">Your Confession is being uploaded...</h6>
             <p>It can take 2-3 min to reflect on this page.
               Refresh page after some time, this can be done by clicking on "ARMCH Unfiltered" at top right corner.</p>
           </div>
@@ -256,23 +519,69 @@
     </div>
   </div>
 
+  <div class="modal fade" id="commentModal" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalTitle">Comment</h5><button class="btn-close btn-close-white"
+            onclick="closeCommentForm()"></button>
+        </div>
+        <div class="modal-body">
+          <form id="commentForm">
+            <div class="mb-3"><label class="form-label">Title</label><input id="commentTitle" maxlength="40" rows="1"
+                class="form-control" value="" readonly>
+            </div>
+            <div class="mb-3"><label class="form-label">Confession</label><textarea id="commentBody" rows="5"
+                maxlength="400" class="form-control" value="" readonly></textarea>
+            </div>
+            <div class="mb-3"><label class="form-label">Confession Time</label><textarea id="commentTime" rows="1"
+                class="form-control" value="" readonly></textarea>
+            </div>
+            <div class="mb-3"><label class="form-label">Comment</label><textarea id="commentComment" rows="5"
+                maxlength="400" class="form-control"></textarea>
+              <div class="counter"><span id="commentCommentCount">0</span>/400</div>
+            </div>
+            <button type="submit" class="btn btn-danger w-100 py-1 fw-semibold">Comment</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-    const title = document.getElementById("formTitle");
-    const body = document.getElementById("formBody");
-    const titleCount = document.getElementById("titleCount");
-    const bodyCount = document.getElementById("bodyCount");
+    const confessTitle = document.getElementById("confessTitle");
+    const confessBody = document.getElementById("confessBody");
+    const confessTitleCount = document.getElementById("confessTitleCount");
+    const confessBodyCount = document.getElementById("confessBodyCount");
+    const commentComment = document.getElementById("commentComment");
+    const commentCommentCount = document.getElementById("commentCommentCount");
 
-    title.oninput = () => titleCount.textContent = title.value.length;
-    body.oninput = () => bodyCount.textContent = body.value.length;
+    confessTitle.oninput = () => confessTitleCount.textContent = confessTitle.value.length;
+    confessBody.oninput = () => confessBodyCount.textContent = confessBody.value.length;
+    commentComment.oninput = () => commentCommentCount.textContent = commentComment.value.length;
   </script>
 
-  <!-- Custom JavaScript -->
+  <!-- Response Upload Logic -->
   <script>
     let uploadFinished = false;
+    let form = "";
     // 1. Define the global callback function that handles the server response
     function handleServerResponse(data) {
-      document.querySelector("#submissionForm button[type='submit']").disabled = false;
+      // document.querySelector(`#${form} button[type='submit']`).disabled = false;
+      const submitBtn = document.querySelector(`#${form} button[type='submit']`);
+      if (submitBtn) {
+        submitBtn.disabled = false;
+      }
+
+      if (form === "confessForm") {
+        confessTitleCount.textContent = "0";
+        confessBodyCount.textContent = "0";
+      }
+
+      if (form === "commentForm") {
+        commentCommentCount.textContent = "0";
+      }
 
       if (uploadFinished) return;
       uploadFinished = true;
@@ -283,50 +592,86 @@
       // Expecting server format: { success: true } OR { success: false, error: "Reason" }
       if (serverResponse && serverResponse.success === true) {
         document.getElementById("statusText").textContent = "Your Confession is uploaded successfully";
-        document.getElementById('submissionForm').reset();
+        document.getElementById(`${form}`).reset();
       } else {
         const errorMsg = serverResponse?.error || "Unknown server validation error.";
         document.getElementById("statusText").textContent = `Error while uploading confession, ${errorMsg}`;
       }
       document.getElementById("cancelBtn").innerHTML = `<button class="btn btn-danger w-100 py-1 fw-semibold"
-      data-bs-dismiss="modal">Close</button>`
+      onclick="closeStatusModal();">Close</button>`
+      form = "";
     }
 
-    // 2. Handle Form Submission
-    document.getElementById('submissionForm').addEventListener('submit', function (event) {
+    // 2. Handle Confession Submission
+    document.getElementById('confessForm').addEventListener('submit', function (event) {
+      handleFormSubmission(event, "confess");
+    });
+
+    // Handle Comment Submission
+    document.getElementById('commentForm').addEventListener('submit', function (event) {
+      handleFormSubmission(event, "comment");
+    });
+
+    function handleFormSubmission(event, modal) {
       event.preventDefault();
 
       const submitBtn = event.target.querySelector("button[type='submit']");
       submitBtn.disabled = true;
 
-      // Extract values
-      const titleValue = document.getElementById('formTitle').value;
-      const bodyValue = document.getElementById('formBody').value;
+      let titleValue = "";
+      let bodyValue = "";
+      let cmTimeValue = "";
+      let commentValue = "";
 
-      // Check Values
-      if (!titleValue.trim() || !bodyValue.trim()) {
-        alert("Title and confession are required.");
-        submitBtn.disabled = false;
-        return;
+      // Extract values
+      if (modal === "confess") {
+        titleValue = document.getElementById(`${modal}Title`).value;
+        bodyValue = document.getElementById(`${modal}Body`).value;
+        // Check Values
+        if (!titleValue.trim() || !bodyValue.trim()) {
+          alert("Title and confession are required.");
+          submitBtn.disabled = false;
+          return;
+        }
+      }
+
+      if (modal === "comment") {
+        titleValue = document.getElementById(`${modal}Title`).value;
+        bodyValue = document.getElementById(`${modal}Body`).value;
+        cmTimeValue = document.getElementById(`${modal}Time`).value;
+        commentValue = document.getElementById(`${modal}Comment`).value;
+        // Check Values
+        if (!titleValue.trim() || !bodyValue.trim() || !cmTimeValue.trim() || !commentValue.trim()) {
+          alert("Title and confession are required.");
+          submitBtn.disabled = false;
+          return;
+        }
+
       }
 
       // UI Cleanup: Close modal and reset form
-      const modalElement = document.getElementById('confessModal');
+      const modalElement = document.getElementById(`${modal}Modal`);
       const modalInstance = bootstrap.Modal.getOrCreateInstance(modalElement);
       modalInstance.hide();
-      // document.getElementById('submissionForm').reset();
-      titleCount.textContent = "0";
-      bodyCount.textContent = "0";
 
       //  Create a status modal
-      document.getElementById("statusText").textContent = "Your Confession is being uploaded";
+      document.getElementById("statusText").textContent = "Your Confession is being uploaded...";
       document.getElementById("cancelBtn").innerHTML = "";
       bootstrap.Modal.getOrCreateInstance(document.getElementById('statusModal')).show();
 
       uploadFinished = false;
+      form = `${modal}Form`;
 
+      let payload;
       // Create JSON object string
-      const payload = { title: titleValue, body: bodyValue };
+      if (modal === "confess") {
+        payload = { title: titleValue, body: bodyValue };
+      }
+
+      if (modal === "comment") {
+        payload = { title: titleValue, body: bodyValue, cmtime: cmTimeValue, comment: commentValue };
+      }
+
       const jsonString = JSON.stringify(payload);
 
       // Convert to URL-safe Base64
@@ -339,7 +684,7 @@
         .replace(/=+$/, '');
 
       // Construct the target cross-origin URL (No callback param included in URL)
-      const targetUrl = `https://confess-omega-blush.vercel.app/${urlSafeBase64}`;
+      const targetUrl = `https://confess-armchuf1.vercel.app/confess/${urlSafeBase64}`;
 
       // Create and inject the script tag
       const scriptTag = document.createElement('script');
@@ -376,7 +721,7 @@
       };
       document.body.appendChild(scriptTag);
 
-    });
+    }
   </script>
 </body>
 
