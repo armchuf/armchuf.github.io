@@ -171,6 +171,11 @@
 </head>
 
 <body>
+  <!-- URL -->
+  <script>
+    const API_URL = `https://confess-6eta5zpu1-armchuf1.vercel.app`;
+  </script>
+
   <nav class="navbar fixed-top">
     <div class="container"><a class="navbar-brand no-select" onclick="reloadCards();">ARMCH Unfiltered</a>
       <div class="d-flex gap-2"><button class="btn btn-warning nav-btn" data-bs-toggle="modal"
@@ -200,16 +205,16 @@
       // Read text content
       const title = document.getElementById(`${id}-title`)?.textContent.trim() || "";
       const body = document.getElementById(`${id}-body`)?.textContent.trim() || "";
-      const time = document.getElementById(`${id}-time`)?.textContent.trim() || "";
 
       // Update input values
       document.getElementById("commentTitle").value = title;
       document.getElementById("commentBody").value = body;
-      document.getElementById("commentTime").value = time;
+      document.getElementById("commentId").value = id;
 
       // Show Bootstrap 5 modal
-      const modal = new bootstrap.Modal(document.getElementById("commentModal"));
-      modal.show();
+      bootstrap.Modal
+        .getOrCreateInstance(document.getElementById("commentModal"))
+        .show();
     }
 
     function closeCommentForm() {
@@ -223,7 +228,7 @@
       // Clear readonly fields
       document.getElementById("commentTitle").value = "";
       document.getElementById("commentBody").value = "";
-      document.getElementById("commentTime").value = "";
+      document.getElementById("commentId").value = "";
 
       // Reset character counter
       document.getElementById("commentCommentCount").textContent = "0";
@@ -234,15 +239,51 @@
         .hide();
     }
   </script>
+
   <div class="container" id="cardContainer"></div>
+
+  <!-- Loading Modal -->
+  <div class="modal fade" id="loadingModal" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Loading Confession</h5>
+        </div>
+        <div class="modal-body">
+          <div class="about-box bg-danger bg-opacity-10 border-danger">
+            <h6>Please Wait. Confessions are loading...</h6>
+            <p>It can take few seconds, Please Wait.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading Modal code -->
+  <script>
+    function showLoading() {
+      const element = document.getElementById("loadingModal");
+      if (!element) return;
+
+      bootstrap.Modal.getOrCreateInstance(element).show();
+    }
+
+    function hideLoading() {
+      const element = document.getElementById("loadingModal");
+      if (!element) return;
+
+      bootstrap.Modal.getOrCreateInstance(element).hide();
+    }
+  </script>
+
   <!-- script.js -->
   <script>
-    const MAX_CARDS = 400; // Change this value as needed
+    const MAX_CARDS = 500; // Change this value as needed
     let cardsLoading = false;
 
     async function loadCards(text, error) {
       if (cardsLoading) {
-        return
+        return;
       } else {
         cardsLoading = true;
       }
@@ -294,13 +335,30 @@
                     </div>
                 </div>
             `;
-          } else if (lines.length === 6) {
+          } else if (lines.length >= 4 && (lines.length - 4) % 3 === 0) {
             const id = lines.shift();
             const title = lines.shift();
             const body = lines.shift();
             const time = lines.shift();
-            const comment = lines.shift();
-            const cmTime = lines.shift();
+
+            let comments = "";
+            while (lines.length >= 3) {
+              const id = lines.shift();
+              const body = lines.shift();
+              const time = lines.shift();
+
+              comments += `
+                <div class="about-box bg-warning bg-opacity-10 border-warning">
+                  <div class="read-more">
+                    <p class="text">${body}</p>
+                    <div class="text-end">
+                      <button class="btn btn-link p-0 toggle-btn">Read more</button>
+                    </div>
+                  </div>
+                  <div class="card-date">${time}</div>
+                </div>
+              `;
+            }
 
             card.innerHTML = `
                 <div class="card confession-card">
@@ -314,23 +372,17 @@
                             </div>
                         </div>
                         <div class="card-date" id="${id}-time">${time}</div>
-                        <div class="about-box bg-warning bg-opacity-10 border-warning">
-                            <h6>Comment</h6>
-                            <div class="read-more">
-                                <p class="text">${comment}</p>
-                                <div class="text-end">
-                                        <button class="btn btn-link p-0 toggle-btn">Read more</button>
-                                </div>
-                            </div>
-                            <div class="card-date">${cmTime}</div>
+                        <div class="about-box bg-danger bg-opacity-10 border-danger">
+                          <h6>Comments</h6>
                         </div>
+                        ${comments}
                         <button class="btn btn-danger w-100 py-1 fw-semibold"
                         onclick="launchCommentPrompt('${id}')">Comment</button>
                     </div>
                 </div>
             `;
           } else {
-            return
+            return;
           }
 
           container.appendChild(card);
@@ -358,23 +410,35 @@
         `;
       } finally {
         cardsLoading = false;
+        setTimeout(() => {
+          hideLoading();
+        }, 500);
+        const elapsed = Date.now() - startLoading;
+        const minTime = 500; // Show for at least 500 ms
+        if (elapsed < minTime) {
+          await new Promise(resolve => setTimeout(resolve, minTime - elapsed));
+        }
+        hideLoading();
       }
     }
   </script>
 
   <!-- Cards Reload Function -->
   <script>
+    let startLoading;
     function reloadCards() {
       if (cardsLoading) {
-        return
+        return;
       }
+      showLoading();
+      startLoading = Date.now();
       // Create and inject the script tag
       const scriptTag = document.createElement('script');
-      scriptTag.src = `https://confess-armchuf1.vercel.app/confessions?t=${Date.now()}`;
+      scriptTag.src = `${API_URL}/confessions?t=${Date.now()}`;
       scriptTag.async = true;
       const timeout = setTimeout(() => {
 
-        loadCards("", "Server timeout.")
+        loadCards("", "Server timeout.");
         scriptTag.remove();
 
       }, 30000); // 30 seconds
@@ -390,7 +454,7 @@
 
         console.error('Script injection failed. Ensure server is online.');
 
-        loadCards("", "Data server could not be reached.")
+        loadCards("", "Data server could not be reached.");
 
         scriptTag.remove();
       };
@@ -510,8 +574,8 @@
         <div class="modal-body">
           <div class="about-box bg-danger bg-opacity-10 border-danger">
             <h6 id="statusText">Your Confession is being uploaded...</h6>
-            <p>It can take 2-3 min to reflect on this page.
-              Refresh page after some time, this can be done by clicking on "ARMCH Unfiltered" at top right corner.</p>
+            <p>The new confessions/comments will reflect immediately on this page.
+              The page can be manually refreshed by clicking on "ARMCH Unfiltered" at top left corner.</p>
           </div>
           <div id="cancelBtn"></div>
         </div>
@@ -528,15 +592,13 @@
         </div>
         <div class="modal-body">
           <form id="commentForm">
-            <div class="mb-3"><label class="form-label">Title</label><input id="commentTitle" maxlength="40" rows="1"
+            <div class="mb-3"><label class="form-label">Title</label><input id="commentTitle" maxlength="40"
                 class="form-control" value="" readonly>
             </div>
             <div class="mb-3"><label class="form-label">Confession</label><textarea id="commentBody" rows="5"
                 maxlength="400" class="form-control" value="" readonly></textarea>
             </div>
-            <div class="mb-3"><label class="form-label">Confession Time</label><textarea id="commentTime" rows="1"
-                class="form-control" value="" readonly></textarea>
-            </div>
+            <input type="hidden" id="commentId" maxlength="40" class="form-control" value="" readonly>
             <div class="mb-3"><label class="form-label">Comment</label><textarea id="commentComment" rows="5"
                 maxlength="400" class="form-control"></textarea>
               <div class="counter"><span id="commentCommentCount">0</span>/400</div>
@@ -620,7 +682,6 @@
 
       let titleValue = "";
       let bodyValue = "";
-      let cmTimeValue = "";
       let commentValue = "";
 
       // Extract values
@@ -636,13 +697,11 @@
       }
 
       if (modal === "comment") {
-        titleValue = document.getElementById(`${modal}Title`).value;
-        bodyValue = document.getElementById(`${modal}Body`).value;
-        cmTimeValue = document.getElementById(`${modal}Time`).value;
+        confessIdValue = document.getElementById(`${modal}Id`).value;
         commentValue = document.getElementById(`${modal}Comment`).value;
         // Check Values
-        if (!titleValue.trim() || !bodyValue.trim() || !cmTimeValue.trim() || !commentValue.trim()) {
-          alert("Title and confession are required.");
+        if (!confessIdValue.trim() || !commentValue.trim()) {
+          alert("Comment is required.");
           submitBtn.disabled = false;
           return;
         }
@@ -669,7 +728,7 @@
       }
 
       if (modal === "comment") {
-        payload = { title: titleValue, body: bodyValue, cmtime: cmTimeValue, comment: commentValue };
+        payload = { id: confessIdValue, comment: commentValue };
       }
 
       const jsonString = JSON.stringify(payload);
@@ -684,7 +743,7 @@
         .replace(/=+$/, '');
 
       // Construct the target cross-origin URL (No callback param included in URL)
-      const targetUrl = `https://confess-armchuf1.vercel.app/confess/${urlSafeBase64}`;
+      const targetUrl = `${API_URL}/confess/${urlSafeBase64}`;
 
       // Create and inject the script tag
       const scriptTag = document.createElement('script');
