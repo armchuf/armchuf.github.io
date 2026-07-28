@@ -299,12 +299,15 @@
           .filter(section => section.length > 0)
           .slice(0, MAX_CARDS);
 
+        const container = document.getElementById("cardContainer");
+        container.innerHTML = "";
+
         if (sections.length === 0) {
           return;
         }
 
-        const container = document.getElementById("cardContainer");
-        container.innerHTML = "";
+        // const container = document.getElementById("cardContainer");
+        // container.innerHTML = "";
 
         sections.forEach(section => {
           const lines = section.trim().split(/\r?\n/);
