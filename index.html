@@ -543,7 +543,41 @@
       </div>
     </div>
   </div>
-
+  
+  <!-- Account is  Banned. -->
+  <div class="modal fade" id="welcomeModal" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Account is Down</h5>
+        </div>
+        <div class="modal-body">
+          <div class="about-box bg-danger bg-opacity-10 border-danger">
+            <h6>Account is Disabled by Instagram.</h6>
+            <p>I don't know why this happned, someone reported or such huge traffic to Account in short time triggred
+              ban.
+              But Keep in mind I had predicted this in advanced, thats why I have created this website.
+              Just search in browser <a href="https://armchuf.ddns.net">armchuf.ddns.net</a> and confess on website.
+              As i have already stated that Instagram policy and some students of ARMCH are not friendly with such
+              confession page.
+              Now Double your toxicity and Confessions, And make this truely feel Unfiltered.
+              If you are able to reach this page please say "YES" in comments.
+              You can add this page to bookmarks for easy access.
+            </p>
+          </div>
+          <button class="btn btn-danger w-100 py-1 fw-semibold" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    window.addEventListener("load", () => {
+      bootstrap.Modal
+        .getOrCreateInstance(document.getElementById("welcomeModal"))
+        .show();
+    });
+  </script>
+  
   <div class="modal fade" id="confessModal" data-bs-backdrop="static" data-bs-keyboard="false">
     <div class="modal-dialog">
       <div class="modal-content">
