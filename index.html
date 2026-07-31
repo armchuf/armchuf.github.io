@@ -2,326 +2,328 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ARMCH Unfiltered</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    :root {
-      --r: #dc3545;
-      --y: #ffc107;
-      --b: #0d6efd;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ARMCH Unfiltered 2.0</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --r: #dc3545;
+            --y: #ffc107;
+            --b: #0d6efd;
+        }
 
-    body {
-      background: #f8f9fa;
-      padding-top: 72px;
-      padding-bottom: 58px;
-      font-family: system-ui, sans-serif
-    }
+        body {
+            background: #f8f9fa;
+            padding-top: 72px;
+            padding-bottom: 58px;
+            font-family: system-ui, sans-serif
+        }
 
-    .navbar,
-    .bottom {
-      background: #fff;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, .08)
-    }
+        .navbar,
+        .bottom {
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, .08)
+        }
 
-    .navbar-brand {
-      font-weight: 800;
-      color: var(--r) !important
-    }
+        .navbar-brand {
+            font-weight: 800;
+            color: var(--r) !important
+        }
 
-    .nav-btn {
-      border-radius: 20px;
-      padding: .35rem .8rem;
-      font-weight: 600
-    }
+        .nav-btn {
+            border-radius: 20px;
+            padding: .35rem .8rem;
+            font-weight: 600
+        }
 
-    .bottom {
-      position: fixed;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      padding: .45rem;
-      text-align: center;
-      font-weight: 600;
-      z-index: 1030
-    }
+        .bottom {
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            padding: .45rem;
+            text-align: center;
+            font-weight: 600;
+            z-index: 1030
+        }
 
-    .confession-card {
-      border: none;
-      border-radius: 14px;
-      overflow: hidden;
-      box-shadow: 0 3px 10px rgba(0, 0, 0, .08);
-      margin-bottom: .8rem
-    }
+        .confession-card {
+            border: none;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, .08);
+            margin-bottom: .8rem
+        }
 
-    .card-header-strip {
-      height: 8px;
-      background: linear-gradient(90deg, var(--r), var(--y), var(--b))
-    }
+        .card-header-strip {
+            height: 8px;
+            background: linear-gradient(90deg, var(--r), var(--y), var(--b))
+        }
 
-    .card-title {
-      text-align: center;
-      font-weight: 700
-    }
+        .card-title {
+            text-align: center;
+            font-weight: 700
+        }
 
-    .card-date {
-      text-align: right;
-      /* text-decoration: underline; */
-      color: #666;
-      font-size: .85rem
-    }
+        .card-date {
+            text-align: right;
+            /* text-decoration: underline; */
+            color: #666;
+            font-size: .85rem
+        }
 
-    .modal-header {
-      padding: .45rem .75rem;
-      background: linear-gradient(90deg, var(--r), var(--y), var(--b));
-      color: #fff
-    }
+        .modal-header {
+            padding: .45rem .75rem;
+            background: linear-gradient(90deg, var(--r), var(--y), var(--b));
+            color: #fff
+        }
 
-    .modal-body {
-      padding: .55rem .75rem
-    }
+        .modal-body {
+            padding: .55rem .75rem
+        }
 
-    .modal-footer {
-      padding: .45rem .75rem
-    }
+        .modal-footer {
+            padding: .45rem .75rem
+        }
 
-    .form-label {
-      margin-bottom: .15rem;
-      font-weight: 600
-    }
+        .form-label {
+            margin-bottom: .15rem;
+            font-weight: 600
+        }
 
-    .form-control {
-      padding: .32rem .55rem
-    }
+        .form-control {
+            padding: .32rem .55rem
+        }
 
-    textarea.form-control {
-      padding: .35rem .55rem;
-      resize: none
-    }
+        textarea.form-control {
+            padding: .35rem .55rem;
+            resize: none
+        }
 
-    .mb-3 {
-      margin-bottom: .45rem !important
-    }
+        .mb-3 {
+            margin-bottom: .45rem !important
+        }
 
-    .counter {
-      font-size: .72rem;
-      text-align: right
-    }
+        .counter {
+            font-size: .72rem;
+            text-align: right
+        }
 
-    .about-box {
-      padding: .4rem .55rem;
-      margin-bottom: .35rem;
-      border-left: 4px solid;
-      border-radius: 8px
-    }
+        .about-box {
+            padding: .4rem .55rem;
+            margin-bottom: .35rem;
+            border-left: 4px solid;
+            border-radius: 8px
+        }
 
-    .about-box h6 {
-      margin: 0 0 .15rem;
-      font-size: .95rem;
-      font-weight: 700
-    }
+        .about-box h6 {
+            margin: 0 0 .15rem;
+            font-size: .95rem;
+            font-weight: 700
+        }
 
-    .about-box p {
-      margin: 0;
-      line-height: 1.35
-    }
+        .about-box p {
+            margin: 0;
+            line-height: 1.35
+        }
 
-    .quote-box {
-      background: #eef5ff;
-      border-left: 4px solid var(--b);
-      padding: .45rem .6rem;
-      border-radius: 8px;
-      text-align: center;
-      line-height: 1.35;
-      font-weight: 600
-    }
+        .quote-box {
+            background: #eef5ff;
+            border-left: 4px solid var(--b);
+            padding: .45rem .6rem;
+            border-radius: 8px;
+            text-align: center;
+            line-height: 1.35;
+            font-weight: 600
+        }
 
-    .final-message {
-      text-align: center;
-      font-weight: 700;
-      color: var(--r);
-      margin-top: .4rem
-    }
+        .final-message {
+            text-align: center;
+            font-weight: 700;
+            color: var(--r);
+            margin-top: .4rem
+        }
 
-    .no-select {
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-    }
+        .no-select {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
 
-    .text {
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
+        .text {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
 
-    .text.expanded {
-      display: block;
-    }
+        .text.expanded {
+            display: block;
+        }
 
-    .form-control[readonly] {
-      background-color: #f8f9fa;
-      cursor: default;
-    }
-  </style>
+        .form-control[readonly] {
+            background-color: #f8f9fa;
+            cursor: default;
+        }
+    </style>
 </head>
 
 <body>
-  <!-- URL -->
-  <script>
-    const API_URL = `https://confess-armchuf1.vercel.app/`;
-  </script>
+    <!-- URL -->
+    <script>
+        const API_URL = `https://confess-armchuf1.vercel.app/`;
+    </script>
 
-  <nav class="navbar fixed-top">
-    <div class="container"><a class="navbar-brand no-select" onclick="reloadCards();">ARMCH Unfiltered</a>
-      <div class="d-flex gap-2"><button class="btn btn-warning nav-btn" data-bs-toggle="modal"
-          data-bs-target="#aboutModal">About</button><button class="btn btn-primary nav-btn" data-bs-toggle="modal"
-          data-bs-target="#confessModal">Confess</button></div>
-    </div>
-  </nav>
-
-  <!-- Cards JS -->
-  <script>
-    document.addEventListener("click", (e) => {
-      if (!e.target.classList.contains("toggle-btn")) return;
-
-      const button = e.target;
-      const text = button.closest(".read-more").querySelector(".text");
-
-      text.classList.toggle("expanded");
-      button.textContent = text.classList.contains("expanded")
-        ? "Read less"
-        : "Read more";
-    });
-  </script>
-
-  <!-- Comment Modal Code -->
-  <script>
-    function launchCommentPrompt(id) {
-      // Read text content
-      const title = document.getElementById(`${id}-title`)?.textContent.trim() || "";
-      const body = document.getElementById(`${id}-body`)?.textContent.trim() || "";
-
-      // Update input values
-      document.getElementById("commentTitle").value = title;
-      document.getElementById("commentBody").value = body;
-      document.getElementById("commentId").value = id;
-
-      // Show Bootstrap 5 modal
-      bootstrap.Modal
-        .getOrCreateInstance(document.getElementById("commentModal"))
-        .show();
-    }
-
-    function closeCommentForm() {
-      if (!confirm("Your changes will be lost. Continue?")) {
-        return;
-      }
-
-      // Reset form
-      document.getElementById("commentForm").reset();
-
-      // Clear readonly fields
-      document.getElementById("commentTitle").value = "";
-      document.getElementById("commentBody").value = "";
-      document.getElementById("commentId").value = "";
-
-      // Reset character counter
-      document.getElementById("commentCommentCount").textContent = "0";
-
-      // Close modal
-      bootstrap.Modal
-        .getOrCreateInstance(document.getElementById("commentModal"))
-        .hide();
-    }
-  </script>
-
-  <div class="container" id="cardContainer"></div>
-
-  <!-- Loading Modal -->
-  <div class="modal fade" id="loadingModal" data-bs-backdrop="static" data-bs-keyboard="false">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Loading Confession</h5>
+    <nav class="navbar fixed-top">
+        <div class="container"><a class="navbar-brand no-select" onclick="reloadCards();">ARMCH Unfiltered 2.0</a>
+            <div class="d-flex gap-2"><button class="btn btn-warning nav-btn" data-bs-toggle="modal"
+                    data-bs-target="#aboutModal">About</button><button class="btn btn-primary nav-btn"
+                    data-bs-toggle="modal" data-bs-target="#confessModal">Confess</button>
+                    <a class="btn btn-danger nav-btn" href="delete.html">Delete</a>
+            </div>
         </div>
-        <div class="modal-body">
-          <div class="about-box bg-danger bg-opacity-10 border-danger">
-            <h6>Please Wait. Confessions are loading...</h6>
-            <p>It can take few seconds, Please Wait.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+    </nav>
 
-  <!-- Loading Modal code -->
-  <script>
-    function showLoading() {
-      const element = document.getElementById("loadingModal");
-      if (!element) return;
+    <!-- Cards JS -->
+    <script>
+        document.addEventListener("click", (e) => {
+            if (!e.target.classList.contains("toggle-btn")) return;
 
-      bootstrap.Modal.getOrCreateInstance(element).show();
-    }
+            const button = e.target;
+            const text = button.closest(".read-more").querySelector(".text");
 
-    function hideLoading() {
-      const element = document.getElementById("loadingModal");
-      if (!element) return;
+            text.classList.toggle("expanded");
+            button.textContent = text.classList.contains("expanded")
+                ? "Read less"
+                : "Read more";
+        });
+    </script>
 
-      bootstrap.Modal.getOrCreateInstance(element).hide();
-    }
-  </script>
+    <!-- Comment Modal Code -->
+    <script>
+        function launchCommentPrompt(id) {
+            // Read text content
+            const title = document.getElementById(`${id}-title`)?.textContent.trim() || "";
+            const body = document.getElementById(`${id}-body`)?.textContent.trim() || "";
 
-  <!-- script.js -->
-  <script>
-    const MAX_CARDS = 500; // Change this value as needed
-    let cardsLoading = false;
+            // Update input values
+            document.getElementById("commentTitle").value = title;
+            document.getElementById("commentBody").value = body;
+            document.getElementById("commentId").value = id;
 
-    async function loadCards(text, error) {
-      if (cardsLoading) {
-        return;
-      } else {
-        cardsLoading = true;
-      }
-
-      try {
-        if (error !== "") {
-          throw new Error(error);
+            // Show Bootstrap 5 modal
+            bootstrap.Modal
+                .getOrCreateInstance(document.getElementById("commentModal"))
+                .show();
         }
 
-        const sections = text
-          .split(/\r?\n\r?\n+/)
-          .map(section => section.trim())
-          .filter(section => section.length > 0)
-          .slice(0, MAX_CARDS);
+        function closeCommentForm() {
+            if (!confirm("Your changes will be lost. Continue?")) {
+                return;
+            }
 
-        const container = document.getElementById("cardContainer");
-        container.innerHTML = "";
+            // Reset form
+            document.getElementById("commentForm").reset();
 
-        if (sections.length === 0) {
-          return;
+            // Clear readonly fields
+            document.getElementById("commentTitle").value = "";
+            document.getElementById("commentBody").value = "";
+            document.getElementById("commentId").value = "";
+
+            // Reset character counter
+            document.getElementById("commentCommentCount").textContent = "0";
+
+            // Close modal
+            bootstrap.Modal
+                .getOrCreateInstance(document.getElementById("commentModal"))
+                .hide();
+        }
+    </script>
+
+    <div class="container" id="cardContainer"></div>
+
+    <!-- Loading Modal -->
+    <div class="modal fade" id="loadingModal" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Loading Confession</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="about-box bg-danger bg-opacity-10 border-danger">
+                        <h6>Please Wait. Confessions are loading...</h6>
+                        <p>It can take few seconds, Please Wait.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Modal code -->
+    <script>
+        function showLoading() {
+            const element = document.getElementById("loadingModal");
+            if (!element) return;
+
+            bootstrap.Modal.getOrCreateInstance(element).show();
         }
 
-        // const container = document.getElementById("cardContainer");
-        // container.innerHTML = "";
+        function hideLoading() {
+            const element = document.getElementById("loadingModal");
+            if (!element) return;
 
-        sections.forEach(section => {
-          const lines = section.trim().split(/\r?\n/);
+            bootstrap.Modal.getOrCreateInstance(element).hide();
+        }
+    </script>
 
-          if (lines.length === 0) return;
-          const card = document.createElement("div");
+    <!-- script.js -->
+    <script>
+        const MAX_CARDS = 500; // Change this value as needed
+        let cardsLoading = false;
 
-          if (lines.length === 4) {
-            const id = lines.shift();
-            const title = lines.shift();
-            const body = lines.shift();
-            const time = lines.shift();
+        async function loadCards(text, error) {
+            if (cardsLoading) {
+                return;
+            } else {
+                cardsLoading = true;
+            }
 
-            card.innerHTML = `
+            try {
+                if (error !== "") {
+                    throw new Error(error);
+                }
+
+                const sections = text
+                    .split(/\r?\n\r?\n+/)
+                    .map(section => section.trim())
+                    .filter(section => section.length > 0)
+                    .slice(0, MAX_CARDS);
+
+                const container = document.getElementById("cardContainer");
+                container.innerHTML = "";
+
+                if (sections.length === 0) {
+                    return;
+                }
+
+                // const container = document.getElementById("cardContainer");
+                // container.innerHTML = "";
+
+                sections.forEach(section => {
+                    const lines = section.trim().split(/\r?\n/);
+
+                    if (lines.length === 0) return;
+                    const card = document.createElement("div");
+
+                    if (lines.length === 4) {
+                        const id = lines.shift();
+                        const title = lines.shift();
+                        const body = lines.shift();
+                        const time = lines.shift();
+
+                        card.innerHTML = `
                 <div class="card confession-card">
                     <div class="card-header-strip"></div>
                     <div class="card-body">
@@ -338,19 +340,19 @@
                     </div>
                 </div>
             `;
-          } else if (lines.length >= 4 && (lines.length - 4) % 3 === 0) {
-            const id = lines.shift();
-            const title = lines.shift();
-            const body = lines.shift();
-            const time = lines.shift();
+                    } else if (lines.length >= 4 && (lines.length - 4) % 3 === 0) {
+                        const id = lines.shift();
+                        const title = lines.shift();
+                        const body = lines.shift();
+                        const time = lines.shift();
 
-            let comments = "";
-            while (lines.length >= 3) {
-              const id = lines.shift();
-              const body = lines.shift();
-              const time = lines.shift();
+                        let comments = "";
+                        while (lines.length >= 3) {
+                            const id = lines.shift();
+                            const body = lines.shift();
+                            const time = lines.shift();
 
-              comments += `
+                            comments += `
                 <div class="about-box bg-warning bg-opacity-10 border-warning">
                   <div class="read-more">
                     <p class="text">${body}</p>
@@ -361,9 +363,9 @@
                   <div class="card-date">${time}</div>
                 </div>
               `;
-            }
+                        }
 
-            card.innerHTML = `
+                        card.innerHTML = `
                 <div class="card confession-card">
                     <div class="card-header-strip"></div>
                     <div class="card-body">
@@ -384,441 +386,457 @@
                     </div>
                 </div>
             `;
-          } else {
-            return;
-          }
+                    } else {
+                        return;
+                    }
 
-          container.appendChild(card);
-        });
+                    container.appendChild(card);
+                });
 
-        document.querySelectorAll(".read-more").forEach(container => {
-          const text = container.querySelector(".text");
-          const button = container.querySelector(".toggle-btn");
+                document.querySelectorAll(".read-more").forEach(container => {
+                    const text = container.querySelector(".text");
+                    const button = container.querySelector(".toggle-btn");
 
-          const lineHeight = parseFloat(getComputedStyle(text).lineHeight);
-          if (text.scrollHeight <= lineHeight * 2 + 1) {
-            button.style.display = "none";
-          }
-        });
+                    const lineHeight = parseFloat(getComputedStyle(text).lineHeight);
+                    if (text.scrollHeight <= lineHeight * 2 + 1) {
+                        button.style.display = "none";
+                    }
+                });
 
-      } catch (err) {
-        console.error(err);
+            } catch (err) {
+                console.error(err);
 
-        document.getElementById("cardContainer").innerHTML = `
+                document.getElementById("cardContainer").innerHTML = `
             <div class="col-12">
                 <div class="alert alert-danger">
                     Failed to load data.
                 </div>
             </div>
         `;
-      } finally {
-        cardsLoading = false;
+            } finally {
+                cardsLoading = false;
+                const elapsed = Date.now() - startLoading;
+                const minTime = 500; // Show for at least 500 ms
+                if (elapsed < minTime) {
+                    await new Promise(resolve => setTimeout(resolve, minTime - elapsed));
+                }
+                hideLoading();
+            }
+        }
+    </script>
+
+    <!-- Cards Reload Function -->
+    <script>
+        let startLoading;
+        function reloadCards() {
+            if (cardsLoading) {
+                return;
+            }
+            showLoading();
+            startLoading = Date.now();
+            // Create and inject the script tag
+            const scriptTag = document.createElement('script');
+            scriptTag.src = `${API_URL}/confessions?t=${Date.now()}`;
+            scriptTag.async = true;
+            const timeout = setTimeout(() => {
+
+                loadCards("", "Server timeout.");
+                scriptTag.remove();
+
+            }, 30000); // 30 seconds
+
+            // Clean up the script tag from DOM after execution to keep HTML tidy
+            scriptTag.onload = () => {
+                clearTimeout(timeout);
+                scriptTag.remove();
+            };
+            scriptTag.onerror = () => {
+
+                clearTimeout(timeout);
+
+                console.error('Script injection failed. Ensure server is online.');
+
+                loadCards("", "Data server could not be reached.");
+
+                scriptTag.remove();
+            };
+            document.body.appendChild(scriptTag);
+        }
+
+        function closeStatusModal() {
+            // Close modal
+            bootstrap.Modal
+                .getOrCreateInstance(document.getElementById("statusModal"))
+                .hide();
+            // Reload cards
+            reloadCards();
+        }
+    </script>
+
+    <!-- Load cards 1st time. -->
+    <script>
+        window.addEventListener("load", () => {
+            reloadCards();
+        });
+    </script>
+
+    <!-- Bottom Bar Script -->
+    <script>
         setTimeout(() => {
-          hideLoading();
-        }, 500);
-        const elapsed = Date.now() - startLoading;
-        const minTime = 500; // Show for at least 500 ms
-        if (elapsed < minTime) {
-          await new Promise(resolve => setTimeout(resolve, minTime - elapsed));
+            document.getElementById("bottomBar").innerHTML = `Click <a href="#" onclick="resetBottomBar(); return false;">here</a> to refresh confessions.`
+        }, 60000);
+
+        function resetBottomBar() {
+            // Reset bottom bar
+            document.getElementById('bottomBar').textContent = 'Made with ❤️ for students of ARMCH.';
+            reloadCards();
+            setTimeout(() => {
+                document.getElementById("bottomBar").innerHTML = `Click <a href="#" onclick="resetBottomBar(); return false;">here</a> to refresh confessions.`
+            }, 60000);
         }
-        hideLoading();
-      }
-    }
-  </script>
+    </script>
 
-  <!-- Cards Reload Function -->
-  <script>
-    let startLoading;
-    function reloadCards() {
-      if (cardsLoading) {
-        return;
-      }
-      showLoading();
-      startLoading = Date.now();
-      // Create and inject the script tag
-      const scriptTag = document.createElement('script');
-      scriptTag.src = `${API_URL}/confessions?t=${Date.now()}`;
-      scriptTag.async = true;
-      const timeout = setTimeout(() => {
+    <div class="bottom" id="bottomBar">Made with ❤️ for students of ARMCH.</div>
 
-        loadCards("", "Server timeout.");
-        scriptTag.remove();
-
-      }, 30000); // 30 seconds
-
-      // Clean up the script tag from DOM after execution to keep HTML tidy
-      scriptTag.onload = () => {
-        clearTimeout(timeout);
-        scriptTag.remove();
-      };
-      scriptTag.onerror = () => {
-
-        clearTimeout(timeout);
-
-        console.error('Script injection failed. Ensure server is online.');
-
-        loadCards("", "Data server could not be reached.");
-
-        scriptTag.remove();
-      };
-      document.body.appendChild(scriptTag);
-    }
-
-    function closeStatusModal() {
-      // Close modal
-      bootstrap.Modal
-        .getOrCreateInstance(document.getElementById("statusModal"))
-        .hide();
-      // Reload cards
-      reloadCards();
-    }
-  </script>
-
-  <!-- Load cards 1st time. -->
-  <script>
-    window.addEventListener("load", () => {
-      reloadCards();
-    });
-  </script>
-
-  <!-- Bottom Bar Script -->
-  <script>
-    setTimeout(() => {
-      document.getElementById("bottomBar").innerHTML = `Click <a href="#" onclick="resetBottomBar(); return false;">here</a> to refresh confessions.`
-    }, 60000);
-
-    function resetBottomBar() {
-      // Reset bottom bar
-      document.getElementById('bottomBar').textContent = 'Made with ❤️ for students of ARMCH.';
-      reloadCards();
-      setTimeout(() => {
-        document.getElementById("bottomBar").innerHTML = `Click <a href="#" onclick="resetBottomBar(); return false;">here</a> to refresh confessions.`
-      }, 60000);
-    }
-  </script>
-
-  <div class="bottom" id="bottomBar">Made with ❤️ for students of ARMCH.</div>
-
-  <div class="modal fade" id="aboutModal" data-bs-backdrop="static" data-bs-keyboard="false">
-    <div class="modal-dialog modal-dialog-scrollable">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">About</h5><button class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body">
-          <div class="text-center mb-2">
-            <div class="fs-3 mb-1">🎭</div>
-            <h5 class="fw-bold text-danger mb-1">Welcome to ARMCH Unfiltered</h5><small class="text-muted">The place
-              where confessions are truly <span class="text-primary fw-semibold">Unfiltered.</span></small>
-          </div>
-          <div class="about-box bg-warning bg-opacity-10 border-warning">
-            <h6>😈 What You'll Find Here</h6>
-            <p>Honest, funny, wholesome and sometimes chaotic confessions shared anonymously by fellow medicos. 💬😂</p>
-          </div>
-          <div class="about-box bg-primary bg-opacity-10 border-primary">
-            <h6>📩 Want to Confess?</h6>
-            <p>Click the <span class="badge bg-primary">Confess</span> button in the top-right corner and share your
-              confession anonymously.</p>
-          </div>
-          <div class="about-box bg-warning bg-opacity-10 border-warning">
-            <h6>⏳ Please Note</h6>
-            <p>New confessions may take a little time to appear on the page. Thanks for your patience ❤️</p>
-          </div>
-          <div class="about-box bg-danger bg-opacity-10 border-danger">
-            <h6>🌐 Why a Website?</h6>
-            <p>We know reading confessions on a website isn't as convenient as Instagram, but Instagram's policies
-              aren't friendly toward truly unfiltered confession pages.</p>
-          </div>
-          <div class="about-box bg-info bg-opacity-10 border-info">
-            <h6>😎 Dear Medicos</h6>
-            <p>Enjoy the fun, embrace the banter, chill and don't take everything too seriously. Respect everyone and
-              keep the vibe positive. ✌️💙</p>
-          </div>
-          <div class="quote-box">"कुछ तो लोग कहेंगे,<br>लोगों का काम है कहना,<br>छोड़ो बेकार की बातों में,<br>कहीं बीत
-            ना जाए रैना।"</div>
-          <div class="final-message">🍿 Happy Reading, Happy Confessing & Enjoy the Drama! 🔥</div>
-        </div>
-        <div class="modal-footer"><button class="btn btn-primary w-100 py-1" data-bs-dismiss="modal">Let's Go</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Account is  Banned. -->
-  <div class="modal fade" id="welcomeModal" data-bs-backdrop="static" data-bs-keyboard="false">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Account is Down</h5>
-        </div>
-        <div class="modal-body">
-          <div class="about-box bg-danger bg-opacity-10 border-danger">
-            <h6>Account is Disabled by Instagram.</h6>
-            <p>I don't know why this happned, someone reported or such huge traffic to Account in short time triggred
-              ban.
-              But Keep in mind I had predicted this in advanced, thats why I have created this website.
-              Just search in browser <a href="https://armchuf.ddns.net">armchuf.ddns.net</a> and confess on website.
-              As i have already stated that Instagram policy and some students of ARMCH are not friendly with such
-              confession page.
-              Now Double your toxicity and Confessions, And make this truely feel Unfiltered.
-              If you are able to reach this page please say "YES" in comments.
-              You can add this page to bookmarks for easy access.
-            </p>
-          </div>
-          <button class="btn btn-danger w-100 py-1 fw-semibold" data-bs-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <script>
-    window.addEventListener("load", () => {
-      bootstrap.Modal
-        .getOrCreateInstance(document.getElementById("welcomeModal"))
-        .show();
-    });
-  </script>
-  
-  <div class="modal fade" id="confessModal" data-bs-backdrop="static" data-bs-keyboard="false">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="modalTitle">Confess</h5><button class="btn-close btn-close-white"
-            data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body">
-          <form id="confessForm">
-            <div class="mb-3"><label class="form-label">Title</label><input id="confessTitle" maxlength="40"
-                class="form-control">
-              <div class="counter"><span id="confessTitleCount">0</span>/40</div>
+    <div class="modal fade" id="aboutModal" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">About</h5><button class="btn-close btn-close-white"
+                        data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center mb-2">
+                        <div class="fs-3 mb-1">🎭</div>
+                        <h5 class="fw-bold text-danger mb-1">Welcome to ARMCH Unfiltered 2.0</h5><small
+                            class="text-muted">The place
+                            where confessions are truly <span
+                                class="text-primary fw-semibold">Unfiltered.</span></small>
+                    </div>
+                    <div class="about-box bg-warning bg-opacity-10 border-warning">
+                        <h6>😈 What You'll Find Here</h6>
+                        <p>Honest, funny, wholesome and sometimes chaotic confessions shared anonymously by fellow
+                            medicos. 💬😂</p>
+                    </div>
+                    <div class="about-box bg-primary bg-opacity-10 border-primary">
+                        <h6>📩 Want to Confess?</h6>
+                        <p>Click the <span class="badge bg-primary">Confess</span> button in the top-right corner and
+                            share your
+                            confession anonymously.</p>
+                    </div>
+                    <div class="about-box bg-warning bg-opacity-10 border-warning">
+                        <h6>⏳ Please Note</h6>
+                        <p>New confessions may take a little time to appear on the page. Thanks for your patience ❤️</p>
+                    </div>
+                    <div class="about-box bg-danger bg-opacity-10 border-danger">
+                        <h6>🌐 Why a Website?</h6>
+                        <p>We know reading confessions on a website isn't as convenient as Instagram, but Instagram's
+                            policies
+                            aren't friendly toward truly unfiltered confession pages.</p>
+                    </div>
+                    <div class="about-box bg-info bg-opacity-10 border-info">
+                        <h6>😎 Dear Medicos</h6>
+                        <p>Enjoy the fun, embrace the banter, chill and don't take everything too seriously. Respect
+                            everyone and
+                            keep the vibe positive. ✌️💙</p>
+                    </div>
+                    <div class="quote-box">"कुछ तो लोग कहेंगे,<br>लोगों का काम है कहना,<br>छोड़ो बेकार की बातों
+                        में,<br>कहीं बीत
+                        ना जाए रैना।"</div>
+                    <div class="final-message">🍿 Happy Reading, Happy Confessing & Enjoy the Drama! 🔥</div>
+                </div>
+                <div class="modal-footer"><button class="btn btn-primary w-100 py-1" data-bs-dismiss="modal">Let's
+                        Go</button>
+                </div>
             </div>
-            <div class="mb-3"><label class="form-label">Confession</label><textarea id="confessBody" rows="5"
-                maxlength="400" class="form-control"></textarea>
-              <div class="counter"><span id="confessBodyCount">0</span>/400</div>
-            </div>
-            <button type="submit" class="btn btn-danger w-100 py-1 fw-semibold">Confess</button>
-          </form>
         </div>
-      </div>
     </div>
-  </div>
 
-  <div class="modal fade" id="statusModal" data-bs-backdrop="static" data-bs-keyboard="false">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Uploading Confession</h5>
+    <!-- Welcome Modal -->
+    <div class="modal fade" id="welcomeModal" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Announcements</h5><button class="btn-close btn-close-white"
+                        data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="about-box bg-danger bg-opacity-10 border-danger">
+                        <h5>Disclaimer.</h5>
+                        <p>This is a hobby project of some random individual, made for educational purpose.<br>
+                            The owner of this site is not responsible for the content/messages added by people.<br>
+                            For removal of any content contact at <a
+                                href="mailto:unfiltered-admin@proton.me">unfiltered-admin@proton.me</a>
+                        </p>
+                        <br>
+                        <h5>Telegram Updates.</h5>
+                        <p>Changes on this site will be notified through Telegram Channel.<br>
+                            No content of this page will be shared in above mentioned channel.<br>
+                            To join telegram channel <a href="https://t.me/+N9hZAcsYOsNjMjJh">Click Here</a>.
+                        </p>
+                        <br>
+                        <h5>Content Deletion.</h5>
+                        <p>If you have any problem with any Confession/Comment, You can delete Confession/Comment.<br>
+                            This can be done by clicking "Delete" button in top right corner.<br>
+                            Or you can <a href="delete.html">Click Here</a> to delete.
+                        </p>
+                        <br>
+                        <button class="btn btn-danger w-100 py-1 fw-semibold" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="modal-body">
-          <div class="about-box bg-danger bg-opacity-10 border-danger">
-            <h6 id="statusText">Your Confession is being uploaded...</h6>
-            <p>The new confessions/comments will reflect immediately on this page.
-              The page can be manually refreshed by clicking on "ARMCH Unfiltered" at top left corner.</p>
-          </div>
-          <div id="cancelBtn"></div>
-        </div>
-      </div>
     </div>
-  </div>
-
-  <div class="modal fade" id="commentModal" data-bs-backdrop="static" data-bs-keyboard="false">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="modalTitle">Comment</h5><button class="btn-close btn-close-white"
-            onclick="closeCommentForm()"></button>
-        </div>
-        <div class="modal-body">
-          <form id="commentForm">
-            <div class="mb-3"><label class="form-label">Title</label><input id="commentTitle" maxlength="40"
-                class="form-control" value="" readonly>
-            </div>
-            <div class="mb-3"><label class="form-label">Confession</label><textarea id="commentBody" rows="5"
-                maxlength="400" class="form-control" value="" readonly></textarea>
-            </div>
-            <input type="hidden" id="commentId" maxlength="40" class="form-control" value="" readonly>
-            <div class="mb-3"><label class="form-label">Comment</label><textarea id="commentComment" rows="5"
-                maxlength="400" class="form-control"></textarea>
-              <div class="counter"><span id="commentCommentCount">0</span>/400</div>
-            </div>
-            <button type="submit" class="btn btn-danger w-100 py-1 fw-semibold">Comment</button>
-          </form>
-        </div>
-      </div>
     </div>
-  </div>
+    <script>
+        window.addEventListener("load", () => {
+            bootstrap.Modal
+                .getOrCreateInstance(document.getElementById("welcomeModal"))
+                .show();
+        });
+    </script>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-    const confessTitle = document.getElementById("confessTitle");
-    const confessBody = document.getElementById("confessBody");
-    const confessTitleCount = document.getElementById("confessTitleCount");
-    const confessBodyCount = document.getElementById("confessBodyCount");
-    const commentComment = document.getElementById("commentComment");
-    const commentCommentCount = document.getElementById("commentCommentCount");
+    <div class="modal fade" id="confessModal" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitle">Confess</h5><button class="btn-close btn-close-white"
+                        data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="confessForm">
+                        <div class="mb-3"><label class="form-label">Title</label><input id="confessTitle" maxlength="40"
+                                class="form-control">
+                            <div class="counter"><span id="confessTitleCount">0</span>/40</div>
+                        </div>
+                        <div class="mb-3"><label class="form-label">Confession</label><textarea id="confessBody"
+                                rows="5" maxlength="400" class="form-control"></textarea>
+                            <div class="counter"><span id="confessBodyCount">0</span>/400</div>
+                        </div>
+                        <button type="submit" class="btn btn-danger w-100 py-1 fw-semibold">Confess</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    confessTitle.oninput = () => confessTitleCount.textContent = confessTitle.value.length;
-    confessBody.oninput = () => confessBodyCount.textContent = confessBody.value.length;
-    commentComment.oninput = () => commentCommentCount.textContent = commentComment.value.length;
-  </script>
+    <div class="modal fade" id="statusModal" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Uploading Confession</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="about-box bg-danger bg-opacity-10 border-danger">
+                        <h6 id="statusText">Your Confession is being uploaded...</h6>
+                        <p>The new confessions/comments will reflect immediately on this page.
+                            The page can be manually refreshed by clicking on "ARMCH Unfiltered 2.0" at top left corner.</p>
+                    </div>
+                    <div id="cancelBtn"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-  <!-- Response Upload Logic -->
-  <script>
-    let uploadFinished = false;
-    let form = "";
-    // 1. Define the global callback function that handles the server response
-    function handleServerResponse(data) {
-      // document.querySelector(`#${form} button[type='submit']`).disabled = false;
-      const submitBtn = document.querySelector(`#${form} button[type='submit']`);
-      if (submitBtn) {
-        submitBtn.disabled = false;
-      }
+    <div class="modal fade" id="commentModal" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitle">Comment</h5><button class="btn-close btn-close-white"
+                        onclick="closeCommentForm()"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="commentForm">
+                        <div class="mb-3"><label class="form-label">Title</label><input id="commentTitle" maxlength="40"
+                                class="form-control" value="" readonly>
+                        </div>
+                        <div class="mb-3"><label class="form-label">Confession</label><textarea id="commentBody"
+                                rows="5" maxlength="400" class="form-control" value="" readonly></textarea>
+                        </div>
+                        <input type="hidden" id="commentId" maxlength="40" class="form-control" value="" readonly>
+                        <div class="mb-3"><label class="form-label">Comment</label><textarea id="commentComment"
+                                rows="5" maxlength="400" class="form-control"></textarea>
+                            <div class="counter"><span id="commentCommentCount">0</span>/400</div>
+                        </div>
+                        <button type="submit" class="btn btn-danger w-100 py-1 fw-semibold">Comment</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
-      if (form === "confessForm") {
-        confessTitleCount.textContent = "0";
-        confessBodyCount.textContent = "0";
-      }
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const confessTitle = document.getElementById("confessTitle");
+        const confessBody = document.getElementById("confessBody");
+        const confessTitleCount = document.getElementById("confessTitleCount");
+        const confessBodyCount = document.getElementById("confessBodyCount");
+        const commentComment = document.getElementById("commentComment");
+        const commentCommentCount = document.getElementById("commentCommentCount");
 
-      if (form === "commentForm") {
-        commentCommentCount.textContent = "0";
-      }
+        confessTitle.oninput = () => confessTitleCount.textContent = confessTitle.value.length;
+        confessBody.oninput = () => confessBodyCount.textContent = confessBody.value.length;
+        commentComment.oninput = () => commentCommentCount.textContent = commentComment.value.length;
+    </script>
 
-      if (uploadFinished) return;
-      uploadFinished = true;
+    <!-- Response Upload Logic -->
+    <script>
+        let uploadFinished = false;
+        let form = "";
+        // 1. Define the global callback function that handles the server response
+        function handleServerResponse(data) {
+            // document.querySelector(`#${form} button[type='submit']`).disabled = false;
+            const submitBtn = document.querySelector(`#${form} button[type='submit']`);
+            if (submitBtn) {
+                submitBtn.disabled = false;
+            }
 
-      // Assign the incoming JSON object to your required constant
-      const serverResponse = data;
+            if (form === "confessForm") {
+                confessTitleCount.textContent = "0";
+                confessBodyCount.textContent = "0";
+            }
 
-      // Expecting server format: { success: true } OR { success: false, error: "Reason" }
-      if (serverResponse && serverResponse.success === true) {
-        document.getElementById("statusText").textContent = "Your Confession is uploaded successfully";
-        document.getElementById(`${form}`).reset();
-      } else {
-        const errorMsg = serverResponse?.error || "Unknown server validation error.";
-        document.getElementById("statusText").textContent = `Error while uploading confession, ${errorMsg}`;
-      }
-      document.getElementById("cancelBtn").innerHTML = `<button class="btn btn-danger w-100 py-1 fw-semibold"
+            if (form === "commentForm") {
+                commentCommentCount.textContent = "0";
+            }
+
+            if (uploadFinished) return;
+            uploadFinished = true;
+
+            // Assign the incoming JSON object to your required constant
+            const serverResponse = data;
+
+            // Expecting server format: { success: true } OR { success: false, error: "Reason" }
+            if (serverResponse && serverResponse.success === true) {
+                document.getElementById("statusText").textContent = "Your Confession is uploaded successfully";
+                document.getElementById(`${form}`).reset();
+            } else {
+                const errorMsg = serverResponse?.error || "Unknown server validation error.";
+                document.getElementById("statusText").textContent = `Error while uploading confession, ${errorMsg}`;
+            }
+            document.getElementById("cancelBtn").innerHTML = `<button class="btn btn-danger w-100 py-1 fw-semibold"
       onclick="closeStatusModal();">Close</button>`
-      form = "";
-    }
-
-    // 2. Handle Confession Submission
-    document.getElementById('confessForm').addEventListener('submit', function (event) {
-      handleFormSubmission(event, "confess");
-    });
-
-    // Handle Comment Submission
-    document.getElementById('commentForm').addEventListener('submit', function (event) {
-      handleFormSubmission(event, "comment");
-    });
-
-    function handleFormSubmission(event, modal) {
-      event.preventDefault();
-
-      const submitBtn = event.target.querySelector("button[type='submit']");
-      submitBtn.disabled = true;
-
-      let titleValue = "";
-      let bodyValue = "";
-      let commentValue = "";
-
-      // Extract values
-      if (modal === "confess") {
-        titleValue = document.getElementById(`${modal}Title`).value;
-        bodyValue = document.getElementById(`${modal}Body`).value;
-        // Check Values
-        if (!titleValue.trim() || !bodyValue.trim()) {
-          alert("Title and confession are required.");
-          submitBtn.disabled = false;
-          return;
-        }
-      }
-
-      if (modal === "comment") {
-        confessIdValue = document.getElementById(`${modal}Id`).value;
-        commentValue = document.getElementById(`${modal}Comment`).value;
-        // Check Values
-        if (!confessIdValue.trim() || !commentValue.trim()) {
-          alert("Comment is required.");
-          submitBtn.disabled = false;
-          return;
+            form = "";
         }
 
-      }
-
-      // UI Cleanup: Close modal and reset form
-      const modalElement = document.getElementById(`${modal}Modal`);
-      const modalInstance = bootstrap.Modal.getOrCreateInstance(modalElement);
-      modalInstance.hide();
-
-      //  Create a status modal
-      document.getElementById("statusText").textContent = "Your Confession is being uploaded...";
-      document.getElementById("cancelBtn").innerHTML = "";
-      bootstrap.Modal.getOrCreateInstance(document.getElementById('statusModal')).show();
-
-      uploadFinished = false;
-      form = `${modal}Form`;
-
-      let payload;
-      // Create JSON object string
-      if (modal === "confess") {
-        payload = { title: titleValue, body: bodyValue };
-      }
-
-      if (modal === "comment") {
-        payload = { id: confessIdValue, comment: commentValue };
-      }
-
-      const jsonString = JSON.stringify(payload);
-
-      // Convert to URL-safe Base64
-      const bytes = new TextEncoder().encode(jsonString);
-      const binary = Array.from(bytes, byte => String.fromCharCode(byte)).join("");
-      const standardBase64 = btoa(binary);
-      const urlSafeBase64 = standardBase64
-        .replace(/\+/g, '-')
-        .replace(/\//g, '_')
-        .replace(/=+$/, '');
-
-      // Construct the target cross-origin URL (No callback param included in URL)
-      const targetUrl = `${API_URL}/confess/${urlSafeBase64}`;
-
-      // Create and inject the script tag
-      const scriptTag = document.createElement('script');
-      scriptTag.src = targetUrl;
-      scriptTag.async = true;
-      const timeout = setTimeout(() => {
-
-        handleServerResponse({
-          success: false,
-          error: "Server timeout."
+        // 2. Handle Confession Submission
+        document.getElementById('confessForm').addEventListener('submit', function (event) {
+            handleFormSubmission(event, "confess");
         });
 
-        scriptTag.remove();
-
-      }, 30000); // 30 seconds
-
-      // Clean up the script tag from DOM after execution to keep HTML tidy
-      scriptTag.onload = () => {
-        clearTimeout(timeout);
-        scriptTag.remove();
-      };
-      scriptTag.onerror = () => {
-
-        clearTimeout(timeout);
-
-        console.error('Script injection failed. Ensure server is online.');
-
-        handleServerResponse({
-          success: false,
-          error: "Data server could not be reached."
+        // Handle Comment Submission
+        document.getElementById('commentForm').addEventListener('submit', function (event) {
+            handleFormSubmission(event, "comment");
         });
 
-        scriptTag.remove();
-      };
-      document.body.appendChild(scriptTag);
+        function handleFormSubmission(event, modal) {
+            event.preventDefault();
 
-    }
-  </script>
+            const submitBtn = event.target.querySelector("button[type='submit']");
+            submitBtn.disabled = true;
+
+            let titleValue = "";
+            let bodyValue = "";
+            let commentValue = "";
+
+            // Extract values
+            if (modal === "confess") {
+                titleValue = document.getElementById(`${modal}Title`).value;
+                bodyValue = document.getElementById(`${modal}Body`).value;
+                // Check Values
+                if (!titleValue.trim() || !bodyValue.trim()) {
+                    alert("Title and confession are required.");
+                    submitBtn.disabled = false;
+                    return;
+                }
+            }
+
+            if (modal === "comment") {
+                confessIdValue = document.getElementById(`${modal}Id`).value;
+                commentValue = document.getElementById(`${modal}Comment`).value;
+                // Check Values
+                if (!confessIdValue.trim() || !commentValue.trim()) {
+                    alert("Comment is required.");
+                    submitBtn.disabled = false;
+                    return;
+                }
+
+            }
+
+            // UI Cleanup: Close modal and reset form
+            const modalElement = document.getElementById(`${modal}Modal`);
+            const modalInstance = bootstrap.Modal.getOrCreateInstance(modalElement);
+            modalInstance.hide();
+
+            //  Create a status modal
+            document.getElementById("statusText").textContent = "Your Confession is being uploaded...";
+            document.getElementById("cancelBtn").innerHTML = "";
+            bootstrap.Modal.getOrCreateInstance(document.getElementById('statusModal')).show();
+
+            uploadFinished = false;
+            form = `${modal}Form`;
+
+            let payload;
+            // Create JSON object string
+            if (modal === "confess") {
+                payload = { title: titleValue, body: bodyValue };
+            }
+
+            if (modal === "comment") {
+                payload = { id: confessIdValue, comment: commentValue };
+            }
+
+            const jsonString = JSON.stringify(payload);
+
+            // Convert to URL-safe Base64
+            const bytes = new TextEncoder().encode(jsonString);
+            const binary = Array.from(bytes, byte => String.fromCharCode(byte)).join("");
+            const standardBase64 = btoa(binary);
+            const urlSafeBase64 = standardBase64
+                .replace(/\+/g, '-')
+                .replace(/\//g, '_')
+                .replace(/=+$/, '');
+
+            // Construct the target cross-origin URL (No callback param included in URL)
+            const targetUrl = `${API_URL}/confess/${urlSafeBase64}`;
+
+            // Create and inject the script tag
+            const scriptTag = document.createElement('script');
+            scriptTag.src = targetUrl;
+            scriptTag.async = true;
+            const timeout = setTimeout(() => {
+
+                handleServerResponse({
+                    success: false,
+                    error: "Server timeout."
+                });
+
+                scriptTag.remove();
+
+            }, 30000); // 30 seconds
+
+            // Clean up the script tag from DOM after execution to keep HTML tidy
+            scriptTag.onload = () => {
+                clearTimeout(timeout);
+                scriptTag.remove();
+            };
+            scriptTag.onerror = () => {
+
+                clearTimeout(timeout);
+
+                console.error('Script injection failed. Ensure server is online.');
+
+                handleServerResponse({
+                    success: false,
+                    error: "Data server could not be reached."
+                });
+
+                scriptTag.remove();
+            };
+            document.body.appendChild(scriptTag);
+
+        }
+    </script>
 </body>
 
 </html>
