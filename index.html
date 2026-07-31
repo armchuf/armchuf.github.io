@@ -416,7 +416,7 @@
             } finally {
                 cardsLoading = false;
                 const elapsed = Date.now() - startLoading;
-                const minTime = 500; // Show for at least 500 ms
+                const minTime = 800; // Show for at least 800 ms
                 if (elapsed < minTime) {
                     await new Promise(resolve => setTimeout(resolve, minTime - elapsed));
                 }
